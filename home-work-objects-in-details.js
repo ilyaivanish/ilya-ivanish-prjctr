@@ -34,16 +34,16 @@ oRAngGEs: '48.7584',
  };
 
 function optimizer(data) {
-  let updatedData = {};
+  const updatedData = {};
   for (const key in data) {
-    let lowercaseKey = key.toLowerCase();
-    let roundedValue = Number.parseFloat(data[key]).toFixed(2);
+    const lowercaseKey = key.toLowerCase();
+    const roundedValue = Number.parseFloat(data[key]).toFixed(2);
     updatedData[lowercaseKey] = roundedValue;
   }
   return updatedData;
 }
 
-let updatedPriceData = optimizer(priceData);
+const updatedPriceData = optimizer(priceData);
 console.log(updatedPriceData)    // {apples: '23.40', bananas: '48.00', oranges: '48.76'}
 
 // 3. Задача про рекурсію та ітерацію:
@@ -65,8 +65,8 @@ console.log(recursiveOddSumTo(10)) // 25
 
 // Ітерація:
 function iterativeOddSumTo(number) {
-    let sum = 0;
-    for (let i = 1; i <= number; i += 2) {
+    const sum = 0;
+    for (const i = 1; i <= number; i += 2) {
       sum += i;
     }
     return sum;
