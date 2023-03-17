@@ -13,6 +13,10 @@ function durationBetweenDates(firstDate = '24 Aug 1991', secondDate = '24 Aug 19
     seconds: 1000
   };
 
+  if (!(dimension in dimensionMap)) {
+    return (`Incorrect dimension: ${dimension}`);
+   }
+
   const dimensionDiff = Math.floor(timeDiff / dimensionMap[dimension]);
   return `${dimensionDiff} ${dimension}`;
 }
@@ -48,11 +52,11 @@ console.log(updatedPriceData)    // {apples: '23.40', bananas: '48.00', oranges:
 function recursiveOddSumTo(number) {
   if (number <= 0) {
     return 0;
-  } if (number % 2 === 0) {
+  } 
+  if (number % 2 === 0) {
     return recursiveOddSumTo(number - 1);
-  } {
-    return number + recursiveOddSumTo(number - 2);
   }
+    return number + recursiveOddSumTo(number - 2);
 }
 
 console.log(recursiveOddSumTo(1)) // 1
