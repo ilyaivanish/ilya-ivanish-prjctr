@@ -14,7 +14,7 @@ function durationBetweenDates(firstDate = '24 Aug 1991', secondDate = '24 Aug 19
   };
 
   if (!(dimension in dimensionMap)) {
-    return (`Incorrect dimension: ${dimension}`);
+    return `Incorrect dimension: ${dimension}`;
    }
 
   const dimensionDiff = Math.floor(timeDiff / dimensionMap[dimension]);
