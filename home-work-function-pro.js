@@ -60,15 +60,12 @@ const movies = [
       if (valueA > valueB) {
         comparison = 1;
       }
-  
       if (valueA < valueB) {
         comparison = -1;
       }
-  
       if (direction === '<') {
         comparison = comparison * -1;
       }
-      
       return comparison;
     };
   }
