@@ -80,7 +80,7 @@ const movies = [
   // Використовуючи setInterval
 
   function detonatorTimer(delay) {
-    let countdown = delay;
+    const countdown = delay;
     const timerId = setInterval(() => {
       if (countdown > 0) {
         console.log(countdown);
@@ -117,7 +117,7 @@ const movies = [
 
   // 5 Напишіть об'єкт в якому опишіть свої довільні властивості та довільні методи (2-3 штуки) що ці властивості виводять
 
-  let pet = {
+  const pet = {
     name: 'Sirius',
     species: 'Cat',
     age: 1,
@@ -157,15 +157,15 @@ const movies = [
 
 // 6 А тепер зробіть всі свої методи з задачі 5 прив'язаними до контексту свого об'єкту - аби вони були захищені від перезапису об'єкту і їх можна було викликати в таймері
 
-let securedPetIntroduce = pet.introduce.bind(pet);
-let securedPetPlay = pet.play.bind(pet);
-let securedPetFeed = pet.feed.bind(pet);
-let securedPetCheckMood = pet.checkMood.bind(pet)
+const securedPetIntroduce = pet.introduce.bind(pet);
+const securedPetPlay = pet.play.bind(pet);
+const securedPetFeed = pet.feed.bind(pet);
+const securedPetCheckMood = pet.checkMood.bind(pet)
 
-setTimeout(securedPetIntroduce, 1000); // will produce the correct result
-setTimeout(securedPetPlay, 2000); // will produce the correct result
-setTimeout(securedPetFeed, 3000); // will produce the correct result
-setTimeout(securedPetCheckMood, 4000); // will produce the correct result
+setTimeout(securedPetIntroduce, 1000); 
+setTimeout(securedPetPlay, 2000); 
+setTimeout(securedPetFeed, 3000); 
+setTimeout(securedPetCheckMood, 4000);
 
 // 7 Напишіть функцію-декоратор яка вопвільнює виконання довільної функції на вказану кількість секунд
 
@@ -183,6 +183,6 @@ function slower(func, seconds) {
   }
 }
 
-let slowedSomeFunction = slower(someFunction, 5);
+const slowedSomeFunction = slower(someFunction, 5);
 
 slowedSomeFunction(2, 3); // logs "You will see result in console in 5 seconds" and after 5 seconds logs 5
