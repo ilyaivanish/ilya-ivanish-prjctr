@@ -1,23 +1,26 @@
 // 1. Напишіть функцію addThemAll яка буде знаходити сумму усіх своїх аргументів незалежно від їх кількості (але без використання вбутованого об'єкту Math). Використайте оператор розширення:
 
-function addThemAll() {
+function addThemAll(...numbers) {
   let sum = 0;
-  for (let i = 0; i < arguments.length; i++) {
-  sum += arguments[i];
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
   }
   return sum;
-  }
-  
-  console.log(addThemAll(2,4)); // 6
-  console.log(addThemAll(1,2,3,4)); // 10
-  console.log(addThemAll(5,5,10)); // 20
+}
+
+console.log(addThemAll(2, 4)); // 6
+console.log(addThemAll(1, 2, 3, 4)); // 10
+console.log(addThemAll(5, 5, 10)); // 20
+
 
 // 2. Задача на використання замикання
-function multiply(a) {
-  return function(b) {
-    return a * b;
-  };
-}
+
+const multiply = a => b => a * b;
+// або:
+
+const multiply = a => (b) {
+  return a * b;
+};
 
 console.log(multiply(5)(5)); // Output: 25
 console.log(multiply(2)(-2)); // Output: -4
@@ -51,24 +54,23 @@ const movies = [
   },
   ];
   
-  function byProperty(property, direction) {
-    return function(a, b) {
-      const valueA = a[property];
-      const valueB = b[property];
-      let comparison = 0;
-      
-      if (valueA > valueB) {
-        comparison = 1;
-      }
-      if (valueA < valueB) {
-        comparison = -1;
-      }
-      if (direction === '<') {
-        comparison = comparison * -1;
-      }
-      return comparison;
-    };
+const byProperty = (property, direction) => (a, b) => {
+  const valueA = a[property];
+  const valueB = b[property];
+  let comparison = 0;
+
+  if (valueA > valueB) {
+    comparison = 1;
   }
+  if (valueA < valueB) {
+    comparison = -1;
+  }
+  if (direction === '<') {
+    comparison = comparison * -1;
+  }
+  return comparison;
+};
+
   
   
   console.log(movies.sort(byProperty('releaseYear', '>'))); //виведе масив фільмів посортованих по року випуску, від старішого до новішого*
@@ -80,40 +82,59 @@ const movies = [
   // Використовуючи setInterval
 
   function detonatorTimer(delay) {
-    const countdown = delay;
+    let remainingSeconds = delay;
     const timerId = setInterval(() => {
-      if (countdown > 0) {
-        console.log(countdown);
-        countdown--;
-      } else {
-        console.log('BOOM!');
+      let output = remainingSeconds
+      if (remainingSeconds > 0) {
+        remainingSeconds--;
+      } else { 
+      if (remainingSeconds == 0) {
+        output = 'Boom';
+        clearInterval(timerId);
+      }}
+      console.log(output)
+    }, 1000);
+  }
+  
+  detonatorTimer(3);
+
+  // або
+
+  function detonatorTimer(delay) {
+    let remainingSeconds = delay;
+    const timerId = setInterval(() => {
+      let output = remainingSeconds > 0 ? remainingSeconds : 'BOOM!';
+      console.log(output);
+      remainingSeconds--;
+      if (remainingSeconds < 0) {
         clearInterval(timerId);
       }
     }, 1000);
   }
   
-  console.log(detonatorTimer(3))
+  detonatorTimer(3);
 
   // Використовуючи вкладений setTimeout
 
   function detonatorTimer(delay) {
     let countdown = delay;
-  
     function tick() {
+      let output = countdown
       if (countdown > 0) {
-        console.log(countdown);
         countdown--;
         setTimeout(tick, 1000);
       } else {
-        console.log('BOOM!');
+        if (countdown == 0) {
+          output = 'Boom!'
+        }
       }
+      console.log(output)
     }
   
     setTimeout(tick, 1000);
   }
   
   console.log(detonatorTimer(3))
-
 
   // 5 Напишіть об'єкт в якому опишіть свої довільні властивості та довільні методи (2-3 штуки) що ці властивості виводять
 
@@ -175,14 +196,21 @@ function someFunction(a, b) {
 
 function slower(func, seconds) {
   return function(...args) {
-    console.log(`You will see result in console in ${seconds} seconds`);
-    setTimeout(() => {
-      const result = func(...args);
-      console.log(result);
-    }, seconds * 1000);
+    return new Promise(resolve => {
+      console.log(`You will see result in console in ${seconds} seconds`);
+      setTimeout(() => {
+        const result = func.apply(this, args);
+        resolve(result);
+      }, seconds * 1000);
+    });
   }
 }
 
 const slowedSomeFunction = slower(someFunction, 5);
+
+slowedSomeFunction(2, 3).then(result => {
+  console.log(result);
+});
+
 
 slowedSomeFunction(2, 3); // logs "You will see result in console in 5 seconds" and after 5 seconds logs 5
