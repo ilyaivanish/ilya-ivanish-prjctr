@@ -117,24 +117,19 @@ const byProperty = (property, direction) => (a, b) => {
   // Використовуючи вкладений setTimeout
 
   function detonatorTimer(delay) {
-    let countdown = delay;
-    function tick() {
-      let output = countdown
-      if (countdown > 0) {
-        countdown--;
-        setTimeout(tick, 1000);
-      } else {
-        if (countdown == 0) {
-          output = 'Boom!'
-        }
-      }
-      console.log(output)
-    }
-  
-    setTimeout(tick, 1000);
+    let output = delay;
+  if (delay > 0) {
+    setTimeout(function() {
+      detonatorTimer(delay - 1);
+    }, 1000);
+  } else {
+    output = 'Boom!';
   }
-  
-  console.log(detonatorTimer(3))
+  console.log(output);
+}
+
+detonatorTimer(3)
+
 
   // 5 Напишіть об'єкт в якому опишіть свої довільні властивості та довільні методи (2-3 штуки) що ці властивості виводять
 
