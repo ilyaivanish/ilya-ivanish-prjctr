@@ -1,22 +1,14 @@
 // 1. Напишіть функцію addThemAll яка буде знаходити сумму усіх своїх аргументів незалежно від їх кількості (але без використання вбутованого об'єкту Math). Використайте оператор розширення:
 
 function addThemAll(...numbers) {
-  let sum = 0;
-  for (let i = 0; i < numbers.length; i++) {
-    sum += numbers[i];
-  }
-  return sum;
+  return numbers.reduce((acc, cur) => acc + cur, 0);
 }
-
 console.log(addThemAll(2, 4)); // 6
 console.log(addThemAll(1, 2, 3, 4)); // 10
 console.log(addThemAll(5, 5, 10)); // 20
 
 
 // 2. Задача на використання замикання
-
-const multiply = a => b => a * b;
-// або:
 
 const multiply = a => (b) {
   return a * b;
@@ -52,7 +44,7 @@ const movies = [
   directedBy: 'McTiernan',
   runningTimeInMinutes: 107,
   },
-  ];
+];
   
 const byProperty = (property, direction) => (a, b) => {
   const valueA = a[property];
@@ -73,15 +65,15 @@ const byProperty = (property, direction) => (a, b) => {
 
   
   
-  console.log(movies.sort(byProperty('releaseYear', '>'))); //виведе масив фільмів посортованих по року випуску, від старішого до новішого*
-  console.log(movies.sort(byProperty('runningTimeInMinutes', '<')));  //виведе масив фільмів посортованих по їх тривалості, від найдовшого до найкоротшого*
-  console.log(movies.sort(byProperty('movieName', '>'))); //виведе масив фільмів посортованих по назві, в алфавітному порядку*
-  
-  // 4 Напишіть функцію detonatorTimer(delay), яка виводить в консоль число кожну секунду, починаючи з delay (ціле число) і в кінці замість 0 виведе 'BOOM!'
+console.log(movies.sort(byProperty('releaseYear', '>'))); //виведе масив фільмів посортованих по року випуску, від старішого до новішого*
+console.log(movies.sort(byProperty('runningTimeInMinutes', '<')));  //виведе масив фільмів посортованих по їх тривалості, від найдовшого до найкоротшого*
+console.log(movies.sort(byProperty('movieName', '>'))); //виведе масив фільмів посортованих по назві, в алфавітному порядку*
 
-  // Використовуючи setInterval
+// 4 Напишіть функцію detonatorTimer(delay), яка виводить в консоль число кожну секунду, починаючи з delay (ціле число) і в кінці замість 0 виведе 'BOOM!'
 
-  function detonatorTimer(delay) {
+// Використовуючи setInterval
+
+function detonatorTimer(delay) {
     let remainingSeconds = delay;
     const timerId = setInterval(() => {
       let output = remainingSeconds
@@ -94,30 +86,14 @@ const byProperty = (property, direction) => (a, b) => {
       }}
       console.log(output)
     }, 1000);
-  }
+}
   
-  detonatorTimer(3);
+detonatorTimer(3);
 
-  // або
+// Використовуючи вкладений setTimeout
 
-  function detonatorTimer(delay) {
-    let remainingSeconds = delay;
-    const timerId = setInterval(() => {
-      let output = remainingSeconds > 0 ? remainingSeconds : 'BOOM!';
-      console.log(output);
-      remainingSeconds--;
-      if (remainingSeconds < 0) {
-        clearInterval(timerId);
-      }
-    }, 1000);
-  }
-  
-  detonatorTimer(3);
-
-  // Використовуючи вкладений setTimeout
-
-  function detonatorTimer(delay) {
-    let output = delay;
+function detonatorTimer(delay) {
+  let output = delay;
   if (delay > 0) {
     setTimeout(function() {
       detonatorTimer(delay - 1);
@@ -131,45 +107,45 @@ const byProperty = (property, direction) => (a, b) => {
 detonatorTimer(3)
 
 
-  // 5 Напишіть об'єкт в якому опишіть свої довільні властивості та довільні методи (2-3 штуки) що ці властивості виводять
+// 5 Напишіть об'єкт в якому опишіть свої довільні властивості та довільні методи (2-3 штуки) що ці властивості виводять
 
-  const pet = {
-    name: 'Sirius',
-    species: 'Cat',
-    age: 1,
-    weight: 4,
-    mood: 'happy',
-    isHungry: false,
-    favoriteToys: 'ball',
-  
-    introduce() {
-      console.log(`My name is ${this.name}, I'm a ${this.species} and I'm ${this.age} years old`);
-    },
-    play() {
-      if (this.favoriteToys.length > 0) {
-        console.log(`I'm playing with my ${this.favoriteToys}`);
-      } else {
-        console.log(`I don't have any toys to play with`);
-      }
-    },
-    feed() {
-      if (this.isHungry == false) {
-        console.log(`Yum! That was delicious`);
-      } else {
-      console.log(`I need more chicken`);
-      }
-    },
-    checkMood() {
-      console.log(`I'm feeling ${this.mood} right now`);
+const pet = {
+  name: 'Sirius',
+  species: 'Cat',
+  age: 1,
+  weight: 4,
+  mood: 'happy',
+  isHungry: false,
+  favoriteToys: 'ball',
+
+  introduce() {
+    console.log(`My name is ${this.name}, I'm a ${this.species} and I'm ${this.age} years old`);
+  },
+  play() {
+    if (this.favoriteToys.length > 0) {
+      console.log(`I'm playing with my ${this.favoriteToys}`);
+    } else {
+      console.log(`I don't have any toys to play with`);
     }
-  };
+  },
+  feed() {
+    if (this.isHungry == false) {
+      console.log(`Yum! That was delicious`);
+    } else {
+    console.log(`I need more chicken`);
+    }
+  },
+  checkMood() {
+    console.log(`I'm feeling ${this.mood} right now`);
+  }
+};
   
   
-  pet.introduce(); // logs "My name is Sirius, I'm a Cat and I'm 1 years old" 
-  pet.play(); // logs "I'm playing with my ball" 
-  pet.feed(); // logs "Yum! That was delicious"
-  pet.checkMood(); // logs "I'm feeling happy right now" 
-  
+pet.introduce(); // logs "My name is Sirius, I'm a Cat and I'm 1 years old" 
+pet.play(); // logs "I'm playing with my ball" 
+pet.feed(); // logs "Yum! That was delicious"
+pet.checkMood(); // logs "I'm feeling happy right now" 
+
 
 // 6 А тепер зробіть всі свої методи з задачі 5 прив'язаними до контексту свого об'єкту - аби вони були захищені від перезапису об'єкту і їх можна було викликати в таймері
 
@@ -191,21 +167,14 @@ function someFunction(a, b) {
 
 function slower(func, seconds) {
   return function(...args) {
-    return new Promise(resolve => {
-      console.log(`You will see result in console in ${seconds} seconds`);
-      setTimeout(() => {
-        const result = func.apply(this, args);
-        resolve(result);
-      }, seconds * 1000);
-    });
-  }
+    console.log(`You will see result in console in ${seconds} seconds`);
+    setTimeout(() => {
+      const result = func(...args);
+      console.log(result);
+    }, seconds * 1000);
+  };
 }
 
 const slowedSomeFunction = slower(someFunction, 5);
-
-slowedSomeFunction(2, 3).then(result => {
-  console.log(result);
-});
-
 
 slowedSomeFunction(2, 3); // logs "You will see result in console in 5 seconds" and after 5 seconds logs 5
