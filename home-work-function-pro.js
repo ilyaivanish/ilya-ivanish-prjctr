@@ -79,11 +79,10 @@ function detonatorTimer(delay) {
       let output = remainingSeconds
       if (remainingSeconds > 0) {
         remainingSeconds--;
-      } else { 
-      if (remainingSeconds == 0) {
+      } else if (remainingSeconds == 0) {
         output = 'Boom';
         clearInterval(timerId);
-      }}
+      }
       console.log(output)
     }, 1000);
 }
