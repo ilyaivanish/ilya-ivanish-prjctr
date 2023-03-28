@@ -80,7 +80,7 @@ function detonatorTimer(delay) {
       if (remainingSeconds > 0) {
         remainingSeconds--;
       } else if (remainingSeconds == 0) {
-        output = 'Boom';
+        output == 'Boom';
         clearInterval(timerId);
       }
       console.log(output)
