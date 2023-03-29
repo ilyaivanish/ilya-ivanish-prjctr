@@ -161,16 +161,13 @@ setTimeout(securedPetCheckMood, 4000);
 // 7 Напишіть функцію-декоратор яка вопвільнює виконання довільної функції на вказану кількість секунд
 
 function someFunction(a, b) {
-  return a + b;
+  console.log(a + b);
 }
 
-function slower(func, seconds) {
+function slower(func, delay) {
+  console.log(`You will see result in console in ${delay} seconds`);
   return function(...args) {
-    console.log(`You will see result in console in ${seconds} seconds`);
-    setTimeout(() => {
-      const result = func(...args);
-      console.log(result);
-    }, seconds * 1000);
+    setTimeout(() => func.apply(this, args), delay * 1000);
   };
 }
 
