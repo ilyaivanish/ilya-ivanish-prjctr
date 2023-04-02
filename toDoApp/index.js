@@ -52,6 +52,7 @@ const startApp = () => {
         const filteredTasks = tasksList.filter(byName(text));
         renderList(filteredTasks);
     });
+
 };
 
 document.addEventListener('DOMContentLoaded', startApp);
