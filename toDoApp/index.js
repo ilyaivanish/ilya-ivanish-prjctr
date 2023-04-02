@@ -8,24 +8,19 @@ import { listClickListener } from './listClickListener.js';
 import { formChangeListener } from './formChangeListener.js';
 import { byName } from './filters.js';
 
+
 // Create a new task
     // by clicking on the button
     // by pressing enter
 // Delete a task
 // Search tasks by name
-
-
-// Mark a task as completed (1/2)
+// Mark a task as completed (2/2)
 // Delete all completed tasks
-// Filter tasks by completed and uncompleted (different lists)
-
-// Save data to localStorage
 
 const startApp = () => {
-    console.log('Workshop1 startApp');
 
-    const tasksList = loadList();
-
+    let tasksList = loadList();
+    
     renderList(tasksList);
 
     const updateList = () => {
@@ -51,6 +46,14 @@ const startApp = () => {
     formChangeListener((text) => {
         const filteredTasks = tasksList.filter(byName(text));
         renderList(filteredTasks);
+    });
+
+    // Delete all completed tasks
+    const deleteCompletedBtn = document.querySelector('#deleteCompletedBtn');
+    deleteCompletedBtn.addEventListener('click', () => {
+      const filteredList = tasksList.filter(task => !task.completed);
+      tasksList = filteredList; 
+      updateList()
     });
 
 };

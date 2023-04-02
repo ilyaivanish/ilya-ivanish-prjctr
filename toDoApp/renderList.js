@@ -19,6 +19,7 @@ export const renderList = (tasksList) => {
         `;
         listElement.append(taskElement);
 
+        // edit task
         const editTask = taskElement.querySelector('.fa-edit');
             editTask.addEventListener('click', () => {
             const editedTask = prompt('Enter the edited task:');
@@ -29,13 +30,14 @@ export const renderList = (tasksList) => {
             }
         });
 
+        // save completion
         const checkbox = taskElement.querySelector('.checkbox');
             checkbox.addEventListener('change', () => {
                 const completed = checkbox.checked;
                 tasksList[index].completed = completed;
                 checkbox.setAttribute('data-completed', completed);
                 localStorage.setItem('tasksList', JSON.stringify(tasksList));
-            });
+        });
 
     });
 
