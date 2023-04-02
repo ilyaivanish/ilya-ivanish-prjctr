@@ -4,15 +4,15 @@ const lastChange = document.querySelector('#last-change');
 
 // Load the state of the button and the last change message from localStorage
 const isDark = localStorage.getItem('isDark') === 'true';
-const lastTime = localStorage.getItem('lastTime');
+const timeFromPreviousSession = localStorage.getItem('lastTime');
 
 if (isDark) {
   toggleBtn.textContent = 'Turn on';
   document.body.classList.add('dark');
-  lastChange.textContent = `Last turning off: ${lastTime}`;
+  lastChange.textContent = `Last turning off: ${timeFromPreviousSession}`;
 }
 else {
-  lastChange.textContent = `Last turning on: ${lastTime}`;
+  lastChange.textContent = `Last turning on: ${timeFromPreviousSession}`;
 }
 
 // Add event listener to the button
