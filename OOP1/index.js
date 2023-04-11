@@ -44,6 +44,10 @@ class Dog {
             console.log(`${this.name} not very funny`);
         }
     };
+
+    feedDog() {
+        return this.wagsItsTail = true
+    }
     
 };
 
@@ -57,6 +61,14 @@ class Parrot {
 
     getDetails() {
         return `${this.name} is a ${this.size} in size ${this.color} parrot`;
+    }
+
+    speakForMe(word) {
+        if (this.isSpeaks) {
+            console.log(`${word}`);
+        } else {
+            console.log(`It is non-talking parrot`);
+        }
     }
 };
 
@@ -78,11 +90,14 @@ britishFallCat.sayMeow();
 britishFallCat.wantsFish();
 console.log(britishFallCat.getDetails())
 
-const huskyDog = new Dog('Gera', 'white', 'big', true)
+const huskyDog = new Dog('Gera', 'white', 'big', false)
+huskyDog.ifWagsItsTail()
+huskyDog.feedDog()
 huskyDog.ifWagsItsTail()
 console.log(huskyDog.getDetails())
 
-
+const cacaduParrot = new Parrot('Kesha', 'yellow', 'small', true)
+cacaduParrot.speakForMe('Kesha is good parrot')
 
 
 
