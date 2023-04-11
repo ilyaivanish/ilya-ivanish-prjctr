@@ -26,12 +26,25 @@ class Cat {
 };
 
 class Dog {
-    constructor(name, color, size, numberOfPaw) {
+    constructor(name, color, size, wagsItsTail) {
         this.name = name
         this.color = color;
         this.size = size;
-        this.numberOfPaw = numberOfPaw;
+        this.wagsItsTail = wagsItsTail;
     }
+
+    getDetails() {
+        return `${this.name} is a ${this.size} in size ${this.color} dog`;
+    };
+
+    ifWagsItsTail() {
+        if (this.wagsItsTail) {
+            console.log(`${this.name} wags its tail right now.`);
+        } else {
+            console.log(`${this.name} not very funny`);
+        }
+    };
+    
 };
 
 class Parrot {
@@ -40,6 +53,10 @@ class Parrot {
         this.color = color;
         this.size = size;
         this.isSpeaks = isSpeaks;
+    }
+
+    getDetails() {
+        return `${this.name} is a ${this.size} in size ${this.color} parrot`;
     }
 };
 
@@ -50,14 +67,25 @@ class Rabbit {
         this.size = size;
         this.colorOfEyes = colorOfEyes;
     }
+
+    getDetails() {
+        return `${this.name} is a ${this.size} in size ${this.color} rabbit`;
+    }
 };
 
-const britishFallCat = new Cat('sirius', 'grey', 'small', true)
-
+const britishFallCat = new Cat('Sirius', 'grey', 'small', true)
 britishFallCat.sayMeow();
 britishFallCat.wantsFish();
 console.log(britishFallCat.getDetails())
-console.log(britishFallCat)
+
+const huskyDog = new Dog('Gera', 'white', 'big', true)
+huskyDog.ifWagsItsTail()
+console.log(huskyDog.getDetails())
+
+
+
+
+
 
 
 
