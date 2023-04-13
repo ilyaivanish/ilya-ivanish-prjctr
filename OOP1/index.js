@@ -70,38 +70,60 @@ class Parrot {
             console.log(`It is non-talking parrot`);
         }
     }
+
+    whatYourName() {
+        if (this.isSpeaks) {
+            console.log(`My name is ${this.name}`);
+        } else {
+            console.log(`It is non-talking parrot`);
+        }
+    }
 };
 
 class Rabbit {
-    constructor(name, color, size, colorOfEyes) {
+    constructor(name, color, size, isCalm) {
         this.name = name
         this.color = color;
         this.size = size;
-        this.colorOfEyes = colorOfEyes;
+        this.isCalm = isCalm;
     }
 
     getDetails() {
         return `${this.name} is a ${this.size} in size ${this.color} rabbit`;
     }
+
+    touchTheRabbit() {
+        if (!this.isCalm) {
+            console.log(`Rabbit ${this.name} ran away`);
+        }
+    }
+
+    sleep(timeInSeconds) {
+        console.log(`Rabbit ${this.name} is sleeping for ${timeInSeconds} minutes...`);
+        setTimeout(() => {
+            console.log(`Rabbit ${this.name} is awake now.`);
+        }, timeInSeconds * 1000);
+    }
 };
 
-const britishFallCat = new Cat('Sirius', 'grey', 'small', true)
-britishFallCat.sayMeow();
-britishFallCat.wantsFish();
-console.log(britishFallCat.getDetails())
+// const britishFallCat = new Cat('Sirius', 'grey', 'small', true)
+// britishFallCat.sayMeow();
+// britishFallCat.wantsFish();
+// console.log(britishFallCat.getDetails())
 
-const huskyDog = new Dog('Gera', 'white', 'big', false)
-huskyDog.ifWagsItsTail()
-huskyDog.feedDog()
-huskyDog.ifWagsItsTail()
-console.log(huskyDog.getDetails())
+// const huskyDog = new Dog('Gera', 'white', 'big', false)
+// huskyDog.ifWagsItsTail()
+// huskyDog.feedDog()
+// huskyDog.ifWagsItsTail()
+// console.log(huskyDog.getDetails())
 
-const cacaduParrot = new Parrot('Kesha', 'yellow', 'small', true)
-cacaduParrot.speakForMe('Kesha is good parrot')
+// const cacaduParrot = new Parrot('Kesha', 'yellow', 'small', true);
+// cacaduParrot.speakForMe('Kesha is good parrot');
+// cacaduParrot.whatYourName()
 
-
-
-
+const glashaRabbit = new Rabbit('Glasha', 'grey', 'big', false)
+glashaRabbit.touchTheRabbit()
+glashaRabbit.sleep(3)
 
 
 // class Plant {
