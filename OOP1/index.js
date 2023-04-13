@@ -1,8 +1,30 @@
 `use strict`;
 
-class Cat {
-    constructor(name, color, size, isLikeFish) {
-        this.name = name
+// Спільний Animal для всіх чотирьох
+class Animal {
+    constructor(name) {
+        this.name = name;
+    };
+};
+
+// спільний предок та спільний метод характерний тільки для Cat та Dog
+class ilyaPet extends Animal {
+    constructor(name, birthDate) {
+        super(name);
+        this.birthDate = birthDate;
+    };
+
+    howLongIlyaBringUp() {
+        const birthDate = new Date(this.birthDate);
+        const oneYearInMs = 1000 * 60 * 60 * 24 * 365; // milliseconds in a year
+        const years = Math.floor((new Date() - birthDate) / oneYearInMs);
+        console.log(`Ilya has been raising ${this.name} for ${years} years`)
+    }
+};
+
+class Cat extends ilyaPet {
+    constructor(name, color, size, isLikeFish, birthDate) {
+        super(name, birthDate);
         this.color = color;
         this.size = size;
         this.isLikeFish = isLikeFish;
@@ -25,9 +47,9 @@ class Cat {
     }
 };
 
-class Dog {
-    constructor(name, color, size, wagsItsTail) {
-        this.name = name
+class Dog extends ilyaPet {
+    constructor(name, color, size, wagsItsTail, birthDate) {
+        super(name, birthDate);
         this.color = color;
         this.size = size;
         this.wagsItsTail = wagsItsTail;
@@ -51,9 +73,9 @@ class Dog {
     
 };
 
-class Parrot {
+class Parrot extends Animal {
     constructor(name, color, size, isSpeaks) {
-        this.name = name
+        super(name);
         this.color = color;
         this.size = size;
         this.isSpeaks = isSpeaks;
@@ -80,9 +102,9 @@ class Parrot {
     }
 };
 
-class Rabbit {
+class Rabbit extends Animal {
     constructor(name, color, size, isCalm) {
-        this.name = name
+        super(name);
         this.color = color;
         this.size = size;
         this.isCalm = isCalm;
@@ -106,93 +128,23 @@ class Rabbit {
     }
 };
 
-// const britishFallCat = new Cat('Sirius', 'grey', 'small', true)
+const britishFallCat = new Cat('Sirius', 'grey', 'small', true, `2022-03-17`)
+// britishFallCat.calculateYearsSinceBirth()
 // britishFallCat.sayMeow();
 // britishFallCat.wantsFish();
 // console.log(britishFallCat.getDetails())
 
-// const huskyDog = new Dog('Gera', 'white', 'big', false)
+const huskyDog = new Dog('Gera', 'white', 'big', false, `2018-04-22`)
+// huskyDog.howLongIlyaBringUp()
 // huskyDog.ifWagsItsTail()
 // huskyDog.feedDog()
 // huskyDog.ifWagsItsTail()
 // console.log(huskyDog.getDetails())
 
-// const cacaduParrot = new Parrot('Kesha', 'yellow', 'small', true);
+const cacaduParrot = new Parrot('Kesha', 'yellow', 'small', true);
 // cacaduParrot.speakForMe('Kesha is good parrot');
 // cacaduParrot.whatYourName()
 
 const glashaRabbit = new Rabbit('Glasha', 'grey', 'big', false)
-glashaRabbit.touchTheRabbit()
-glashaRabbit.sleep(3)
-
-
-// class Plant {
-//     constructor(color, size) {
-//         this.color = color;
-//         this.size = size;
-//     }
-
-//     cut() {
-//         console.log('Cutting successful ' + this.color);
-//     }
-
-//     setSize(size) {
-//         if (['small', 'middle', 'large'].includes(size)) {
-//             this.size = size;
-//         } else {
-//             throw new Error('Wrong size');
-//         }
-//     }
-// }
-
-// class Apple extends Plant {
-//     constructor(color, size, isInTree) {
-//         super(color, size);
-//         this.isInTree = isInTree;
-//     }
-
-    // fall() {
-    //     if (this.isInTree) {
-    //         console.log(this.color + ' Apple fell');
-    //     } else {
-    //         console.log(this.color + ' Apple is not in tree');
-    //     }
-    // }
-// }
-
-// class Tomato extends Plant {
-//     constructor(color, size) {
-//         super(color, size);
-//     }
-
-//     jump() {
-//         console.log("I'm funny jumping tomato");
-//     }
-// }
-
-// const a = new Apple('green', 'small', true);
-// const b = new Tomato('red', 'middle', false);
-// const c = new Apple('red', 'large', false);
-// console.log(a, b, c, a === b);
-
-// const size = document.getElementById('size') ?? 'small';
-
-// b.setSize(size);
-
-// console.log(a.size, b.size, a === b, a.size === b.size);
-
-// a.fall();
-// a.cut();
-// b.cut();
-
-// console.log('2' + '2');
-
-// const margeHeight = (obj, height) => {
-//     obj.height = height;
-//     return obj;
-// };
-
-// const aa = margeHeight(a, 10);
-// const bb = margeHeight(b, 20);
-
-// console.log(aa, bb);
+// glashaRabbit.touchTheRabbit()
+// glashaRabbit.sleep(3)
