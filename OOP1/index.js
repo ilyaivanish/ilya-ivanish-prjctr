@@ -28,23 +28,30 @@ class Cat extends IlyaPet {
         this.color = color;
         this.size = size;
         this.isLikeFish = isLikeFish;
+        this.#favoriteToy = 'ball';
+    };
+
+    #favoriteToy;
+
+    getFavoriteToy() {
+        return this.#favoriteToy;
     }
 
     sayMeow() {
         console.log(this.name + ' saying meooow')
-    }
+    };
 
     getDetails() {
         return `${this.name} is a ${this.size} in size ${this.color} cat and ${this.isLikeFish ? 'likes' : 'does not like'} fish.`;
-    }
+    };
     
     wantsFish() {
         if (this.isLikeFish) {
             console.log(`${this.name} really want a fish`);
         } else {
             console.log(`${this.name} eats only chicken `);
-        }
-    }
+        };
+    };
 };
 
 class Dog extends IlyaPet {
@@ -53,6 +60,13 @@ class Dog extends IlyaPet {
         this.color = color;
         this.size = size;
         this.wagsItsTail = wagsItsTail;
+        this.#favoriteActivity = 'catch cats';
+    }
+
+    #favoriteActivity
+
+    walkTheDog() {
+        return `Woof-woof! I really want to ${this.#favoriteActivity}`
     }
 
     getDetails() {
@@ -79,7 +93,14 @@ class Parrot extends Animal {
         this.color = color;
         this.size = size;
         this.isSpeaks = isSpeaks;
+        this.#wordsLearned = 100;
     }
+
+    #wordsLearned
+
+    howManyWordsLearned() {
+        console.log(`I have learned ${this.#wordsLearned} words`);
+    };
 
     getDetails() {
         return `${this.name} is a ${this.size} in size ${this.color} parrot`;
@@ -87,7 +108,9 @@ class Parrot extends Animal {
 
     speakForMe(word) {
         if (this.isSpeaks) {
+            const words = word.split(' ');
             console.log(`${word}`);
+            this.#wordsLearned += words.length;
         } else {
             console.log(`It is non-talking parrot`);
         }
@@ -108,24 +131,31 @@ class Rabbit extends Animal {
         this.color = color;
         this.size = size;
         this.isCalm = isCalm;
+        this.#favoriteFood = 'vegetables'
     }
+
+    #favoriteFood
+
+    getFavoriteFood() {
+        console.log(`${this.name} loves to eat ${this.#favoriteFood}!`);
+    };
 
     getDetails() {
         return `${this.name} is a ${this.size} in size ${this.color} rabbit`;
-    }
+    };
 
     touchTheRabbit() {
         if (!this.isCalm) {
             console.log(`Rabbit ${this.name} ran away`);
-        }
-    }
+        };
+    };
 
     sleep(timeInSeconds) {
         console.log(`Rabbit ${this.name} is sleeping for ${timeInSeconds} minutes...`);
         setTimeout(() => {
             console.log(`Rabbit ${this.name} is awake now.`);
         }, timeInSeconds * 1000);
-    }
+    };
 };
 
 const britishFallCat = new Cat('Sirius', 'grey', 'small', true, `2022-03-17`)
@@ -133,6 +163,7 @@ const britishFallCat = new Cat('Sirius', 'grey', 'small', true, `2022-03-17`)
 // britishFallCat.sayMeow();
 // britishFallCat.wantsFish();
 // console.log(britishFallCat.getDetails())
+// console.log(britishFallCat.getFavoriteToy())
 
 const huskyDog = new Dog('Gera', 'white', 'big', false, `2018-04-22`)
 // huskyDog.howLongIlyaBringUp()
@@ -140,9 +171,11 @@ const huskyDog = new Dog('Gera', 'white', 'big', false, `2018-04-22`)
 // huskyDog.feedDog()
 // huskyDog.ifWagsItsTail()
 // console.log(huskyDog.getDetails())
+// console.log(huskyDog.walkTheDog())
 
 const cacaduParrot = new Parrot('Kesha', 'yellow', 'small', true);
 // cacaduParrot.speakForMe('Kesha is good parrot');
+// cacaduParrot.howManyWordsLearned()
 // cacaduParrot.whatYourName()
 
 const glashaRabbit = new Rabbit('Glasha', 'grey', 'big', false)
