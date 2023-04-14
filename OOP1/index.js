@@ -8,7 +8,7 @@ class Animal {
 };
 
 // спільний предок та спільний метод характерний тільки для Cat та Dog
-class ilyaPet extends Animal {
+class IlyaPet extends Animal {
     constructor(name, birthDate) {
         super(name);
         this.birthDate = birthDate;
@@ -22,7 +22,7 @@ class ilyaPet extends Animal {
     }
 };
 
-class Cat extends ilyaPet {
+class Cat extends IlyaPet {
     constructor(name, color, size, isLikeFish, birthDate) {
         super(name, birthDate);
         this.color = color;
@@ -47,7 +47,7 @@ class Cat extends ilyaPet {
     }
 };
 
-class Dog extends ilyaPet {
+class Dog extends IlyaPet {
     constructor(name, color, size, wagsItsTail, birthDate) {
         super(name, birthDate);
         this.color = color;
