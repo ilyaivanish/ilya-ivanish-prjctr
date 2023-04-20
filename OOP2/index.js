@@ -1,110 +1,155 @@
 `use strict`;
 
-
 // Спільний Animal для всіх чотирьох
-function Animal(name, age, habitat) {
+  
+function Animal(name) {
     this.name = name;
-    this.age = age;
-    this.habitat = habitat;
 }
-  
-Animal.prototype.introduce = function() {
-    console.log(`Hi, my name is ${this.name}. I am ${this.age} years old and I live in ${this.habitat}.`);
+
+// Спільний IlyaPet для Кота та Собаки
+function IlyaPet(name, birthDate) {
+    Animal.call(this, name);
+    this.birthDate = birthDate;
+}
+
+IlyaPet.prototype.howLongIlyaBringUp = function() {
+    const birthDate = new Date(this.birthDate);
+        const oneYearInMs = 1000 * 60 * 60 * 24 * 365; // milliseconds in a year
+        const years = Math.floor((new Date() - birthDate) / oneYearInMs);
+        console.log(`Ilya has been raising ${this.name} for ${years} years`)
 };
-  
-// Define the child classes
-function Cat(name, age, habitat, color, mood) {
-    Animal.call(this, name, age, habitat);
+
+// 4 класи
+function Cat(name, color, size, isLikeFish, birthDate) {
+    IlyaPet.call(this, name, birthDate);
     this.color = color;
-    this.mood = mood;
+    this.size = size;
+    this.isLikeFish = isLikeFish;
 }
   
-Cat.prototype = Object.create(Animal.prototype);
+Cat.prototype = Object.create(IlyaPet.prototype);
 Cat.prototype.constructor = Cat;
-Cat.prototype.likesMilk = true;
 
-Cat.prototype.meow = function() {
-    console.log(`${this.name} says meow!`);
-};
-  
-Cat.prototype.play = function() {
-    console.log(`${this.name} is playing with a ball of yarn!`);
+Cat.prototype.sayMeow = function() {
+    console.log(this.name + ' saying meooow')
 };
 
-const garfield = new Cat("Garfield", 5, "house", "orange", "lazy");
-garfield.introduce();
-garfield.meow();
-garfield.play();
+Cat.prototype.getDetails = function() {
+    return `${this.name} is a ${this.size} in size ${this.color} cat and ${this.isLikeFish ? 'likes' : 'does not like'} fish.`;
+};
 
-// function Dog(name, age, habitat, breed, size) {
-//     Animal.call(this, name, age, habitat);
-//     this.breed = breed;
-//     this.size = size;
-// }
-  
-// Dog.prototype = Object.create(Animal.prototype);
-// Dog.prototype.constructor = Dog;
-// Dog.prototype.likesChewToys = true;
+Cat.prototype.wantsFish = function() {
+    if (this.isLikeFish) {
+        console.log(`${this.name} really want a fish`);
+    } else {
+        console.log(`${this.name} eats only chicken `);
+    };
+};
 
-// Dog.prototype.bark = function() {
-//     console.log(`${this.name} says bark!`);
-// };
-
-// Dog.prototype.run = function() {
-//     console.log(`${this.name} is running after a frisbee!`);
-// };
-  
-// const clifford = new Dog("Clifford", 3, "farm", "Big Red", "large");
-// clifford.introduce();
-// clifford.bark();
-// clifford.run();
-  
+const britishFallCat = new Cat('Sirius', 'grey', 'small', true, `2022-03-17`)
+// britishFallCat.howLongIlyaBringUp()
+// britishFallCat.sayMeow();
+// britishFallCat.wantsFish();
+// console.log(britishFallCat.getDetails())
 
 
-// function Bird(name, age, habitat, wingspan, color) {
-//     Animal.call(this, name, age, habitat);
-//     this.wingspan = wingspan;
-//     this.color = color;
-// }
-  
-// Bird.prototype = Object.create(Animal.prototype);
-// Bird.prototype.constructor = Bird;
-// Bird.prototype.hasFeathers = true;
+function Dog(name, color, size, wagsItsTail, birthDate) {
+    IlyaPet.call(this, name, birthDate);
+    this.color = color;
+    this.size = size;
+    this.wagsItsTail = wagsItsTail;
+}
+
+Dog.prototype = Object.create(IlyaPet.prototype);
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.getDetails = function() {
+    return `${this.name} is a ${this.size} in size ${this.color} dog`;
+};
+
+Dog.prototype.ifWagsItsTail = function() {
+    if (this.wagsItsTail) {
+        console.log(`${this.name} wags its tail right now.`);
+    } else {
+        console.log(`${this.name} not very funny`);
+    }
+};
+
+Dog.prototype.feedDog = function() {
+    return this.wagsItsTail = true
+}
+
+const huskyDog = new Dog('Gera', 'white', 'big', false, `2018-04-22`)
+// huskyDog.howLongIlyaBringUp()
+// huskyDog.ifWagsItsTail()
+// huskyDog.feedDog()
+// huskyDog.ifWagsItsTail()
+// console.log(huskyDog.getDetails())
 
 
-// Bird.prototype.fly = function() {
-//     console.log(`${this.name} is flying with a wingspan of ${this.wingspan} feet!`);
-// };
-  
-// Bird.prototype.chirp = function() {
-//     console.log(`${this.name} is chirping!`);
-// };
+function Parrot(name, color, size, isSpeaks) {
+    Animal.call(this, name);
+    this.color = color;
+    this.size = size;
+    this.isSpeaks = isSpeaks;
+}
 
-// const baldEagle = new Bird("Bald Eagle", 7, "mountain", 7.5, "brown");
-// baldEagle.introduce();
-// baldEagle.fly();
-// baldEagle.chirp();
+Parrot.prototype = Object.create(Animal.prototype);
+Parrot.prototype.constructor = Parrot;
 
-// function Fish(name, age, habitat, type, fins) {
-//     Animal.call(this, name, age, habitat);
-//     this.type = type;
-//     this.fins = fins;
-// }
-  
-// Fish.prototype = Object.create(Animal.prototype);
-// Fish.prototype.constructor = Fish;
-// Fish.prototype.hasGills = true;
+Parrot.prototype.getDetails = function() {
+    return `${this.name} is a ${this.size} in size ${this.color} parrot`;
+}
 
-// Fish.prototype.swim = function() {
-//     console.log(`${this.name} is swimming with ${this.fins} fins!`);
-// };
-  
-// Fish.prototype.dive = function() {
-//     console.log(`${this.name} is diving deeper into the ocean!`);
-// };
+Parrot.prototype.speakForMe = function(word) {
+    if (this.isSpeaks) {
+        console.log(`${word}`);
+    } else {
+        console.log(`It is non-talking parrot`);
+    }
+}
 
-// const clownfish = new Fish("Nemo", 1, "ocean", "clownfish", 3);
-// clownfish.introduce();
-// clownfish.swim();
-// clownfish.dive();
-  
+Parrot.prototype.whatYourName = function() {
+    if (this.isSpeaks) {
+        console.log(`My name is ${this.name}`);
+    } else {
+        console.log(`It is non-talking parrot`);
+    }
+}
+
+const cacaduParrot = new Parrot('Kesha', 'yellow', 'small', true);
+// console.log(cacaduParrot.getDetails())
+// cacaduParrot.speakForMe('Kesha is good parrot');
+// cacaduParrot.whatYourName()
+
+function Rabbit(name, color, size, isCalm) {
+    Animal.call(this, name);
+    this.color = color;
+    this.size = size;
+    this.isCalm = isCalm;
+}
+
+Rabbit.prototype = Object.create(Animal.prototype);
+Rabbit.prototype.constructor = Rabbit;
+
+Rabbit.prototype.getDetails = function() {
+    return `${this.name} is a ${this.size} in size ${this.color} rabbit`;
+};
+
+Rabbit.prototype.touchTheRabbit = function() {
+    if (!this.isCalm) {
+        console.log(`Rabbit ${this.name} ran away`);
+    };
+};
+
+Rabbit.prototype.sleep = function(timeInSeconds) {
+    console.log(`Rabbit ${this.name} is sleeping for ${timeInSeconds} seconds...`);
+    setTimeout(() => {
+        console.log(`Rabbit ${this.name} is awake now.`);
+    }, timeInSeconds * 1000);
+};
+
+const glashaRabbit = new Rabbit('Glasha', 'grey', 'big', false)
+// glashaRabbit.touchTheRabbit()
+// glashaRabbit.sleep(3)
+// console.log(glashaRabbit.getDetails())
