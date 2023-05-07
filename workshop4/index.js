@@ -38,6 +38,7 @@ class UI {
 
     removeUserData() {
         this.profileElement.innerHTML = '';
+        this.repoHtml.innerHTML = ''
     }
 
     renderUserData(user) {
@@ -71,29 +72,22 @@ class UI {
     renderUserRepo(repos) {
         this.repoHtml.innerHTML = '';
         repos.forEach((repo) => {
-          const {
-            name,
-            html_url: url,
-            description,
-            language,
-            updated_at: updatedAt
-          } = repo;
-          const repoHtml = `
-            <div class="card mb-3">
-              <div class="card-header">
-                <h3 class="card-title">${name}</h3>
-              </div>
-              <div class="card-body">
-                <p>${description}</p>
-                <ul>
-                  <li><strong>Language:</strong> ${language || 'Not specified'}</li>
-                  <li><strong>Updated:</strong> ${updatedAt}</li>
-                </ul>
-                <a href="${url}" class="btn btn-primary">View on GitHub</a>
-              </div>
-            </div>
-          `;
-          this.repoHtml.insertAdjacentHTML('beforeend', repoHtml);
+            const repoHtml = `
+                <div class="card mb-3">
+                <div class="card-header">
+                    <h3 class="card-title">${repo.name}</h3>
+                </div>
+                <div class="card-body">
+                    <p>${repo.description || 'Not specified'}</p>
+                    <ul>
+                    <li><strong>Language:</strong> ${repo.language || 'Not specified'}</li>
+                    <li><strong>Updated:</strong> ${repo.updatedAt}</li>
+                    </ul>
+                    <a href="${repo.url}" class="btn btn-primary">View on GitHub</a>
+                </div>
+                </div>
+            `;
+            this.repoHtml.insertAdjacentHTML('beforeend', repoHtml);
         });
       }
     
@@ -134,9 +128,6 @@ class API {
         const response = await fetch(`https://api.github.com/users/${input}/repos?sort=updated`);
         const repos = await response.json();
         const data = repos.slice(0, 5)
-        if (data.message === 'Not Found') {
-            throw new Error(`User "${input}" not found`);
-        }
         console.log(data)
         return data;
     }
