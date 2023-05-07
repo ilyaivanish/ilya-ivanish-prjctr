@@ -4,13 +4,14 @@ const CLIENT_ID = '7ca625fd40f0954c4532';
 const CLIENT_SECRET = '90e29b701ce20a27ead1a89f0f6a8f5505255c26';
 
 class UI {
-    constructor(searchUserInputElement, formElement, profileElement, alertsElement, loadingElement) {
+    constructor(searchUserInputElement, formElement, profileElement, alertsElement, loadingElement, repoHtml) {
         this.searchUserInputElement = searchUserInputElement;
         this.formElement = formElement;
         this.profileElement = profileElement;
         this.alertsElement = alertsElement;
         this.loadingElement = loadingElement;
         this.searchUserInput = '';
+        this.repoHtml = repoHtml
 
         this.hideLoading();
     }
@@ -67,6 +68,30 @@ class UI {
     `;
     }
 
+    renderUserRepo(user) {
+        const latestRepo = repos[0];
+        const repoName = latestRepo.name;
+        const repoUrl = latestRepo.html_url;
+        const repoDescription = latestRepo.description;
+        const repoLanguage = latestRepo.language;
+        const repoUpdatedAt = latestRepo.updated_at;
+        this.repoHtml.innerHTML = `
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">${repoName}</h3>
+              </div>
+              <div class="card-body">
+                <p>${repoDescription}</p>
+                <ul>
+                  <li><strong>Language:</strong> ${repoLanguage}</li>
+                  <li><strong>Updated:</strong> ${repoUpdatedAt}</li>
+                </ul>
+                <a href="${repoUrl}" class="btn btn-primary">View on GitHub</a>
+              </div>
+            </div>
+        `;
+    }
+
     renderError(error) {
         const alert = document.createElement('div');
         alert.className = 'alert alert-danger';
@@ -98,6 +123,15 @@ class API {
         }
         return data;
     }
+
+    async getUserRepo(input) {
+        const response = await fetch(`https://api.github.com/users/${input}/repos?sort=updated`);
+        const data = await response.json();
+        if (data.message === 'Not Found') {
+            throw new Error(`User "${input}" not found`);
+        }
+        return data;
+    }
 }
 
 const ui = new UI(
@@ -106,6 +140,7 @@ const ui = new UI(
     document.getElementById('profile'),
     document.getElementById('alerts'),
     document.getElementById('loading'),
+    document.getElementById('repos')
 );
 const api = new API();
 
@@ -117,8 +152,10 @@ const run = () => {
             ui.removeUserData();
             ui.showLoading();
             const userData = await api.getUserData(input);
-            console.log('userData', userData);
+            const userRepo = await api.getUserRepo(input);
+            console.log(userRepo)
             ui.renderUserData(userData);
+            ui.renderUserRepo(userRepo)
         } catch (error) {
             console.log('error', error);
             ui.renderError(error);
@@ -127,6 +164,41 @@ const run = () => {
         }
     };
 
+    async function fetchRepo(input) {
+        try {
+          const response = await fetch(`https://api.github.com/users/${input}/repos?sort=updated`);
+          const repos = await response.json();
+          const latestRepo = repos[0];
+          const repoName = latestRepo.name;
+          const repoUrl = latestRepo.html_url;
+          const repoDescription = latestRepo.description;
+          const repoLanguage = latestRepo.language;
+          const repoUpdatedAt = latestRepo.updated_at;
+      
+          const repoHtml = `
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">${repoName}</h3>
+              </div>
+              <div class="card-body">
+                <p>${repoDescription}</p>
+                <ul>
+                  <li><strong>Language:</strong> ${repoLanguage}</li>
+                  <li><strong>Updated:</strong> ${repoUpdatedAt}</li>
+                </ul>
+                <a href="${repoUrl}" class="btn btn-primary">View on GitHub</a>
+              </div>
+            </div>
+          `;
+      
+          document.getElementById('repos').innerHTML = repoHtml;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      
+      fetchRepo('sharkich')
+    
     ui.onInputChange(searchUser);
     ui.onFormSubmit(searchUser);
 };
