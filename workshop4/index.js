@@ -1,7 +1,7 @@
 'use strict';
 
-const CLIENT_ID = 'd9308aacf8b204d361fd';
-const CLIENT_SECRET = '84969aeef73956f4ec9e8716d1840532802bb81b';
+const CLIENT_ID = '7ca625fd40f0954c4532';
+const CLIENT_SECRET = '90e29b701ce20a27ead1a89f0f6a8f5505255c26';
 
 class UI {
     constructor(searchUserInputElement, formElement, profileElement, alertsElement, loadingElement) {
