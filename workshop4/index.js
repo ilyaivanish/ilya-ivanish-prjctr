@@ -128,7 +128,6 @@ class API {
         const response = await fetch(`https://api.github.com/users/${input}/repos?sort=updated`);
         const repos = await response.json();
         const data = repos.slice(0, 5)
-        console.log(data)
         return data;
     }
 }
@@ -152,7 +151,6 @@ const run = () => {
             ui.showLoading();
             const userData = await api.getUserData(input);
             const userRepo = await api.getUserRepo(input);
-            console.log(userRepo)
             ui.renderUserData(userData);
             ui.renderUserRepo(userRepo)
         } catch (error) {
