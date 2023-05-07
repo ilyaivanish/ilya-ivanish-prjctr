@@ -68,29 +68,35 @@ class UI {
     `;
     }
 
-    renderUserRepo(user) {
-        const latestRepo = repos[0];
-        const repoName = latestRepo.name;
-        const repoUrl = latestRepo.html_url;
-        const repoDescription = latestRepo.description;
-        const repoLanguage = latestRepo.language;
-        const repoUpdatedAt = latestRepo.updated_at;
-        this.repoHtml.innerHTML = `
-            <div class="card">
+    renderUserRepo(repos) {
+        this.repoHtml.innerHTML = '';
+        repos.forEach((repo) => {
+          const {
+            name,
+            html_url: url,
+            description,
+            language,
+            updated_at: updatedAt
+          } = repo;
+          const repoHtml = `
+            <div class="card mb-3">
               <div class="card-header">
-                <h3 class="card-title">${repoName}</h3>
+                <h3 class="card-title">${name}</h3>
               </div>
               <div class="card-body">
-                <p>${repoDescription}</p>
+                <p>${description}</p>
                 <ul>
-                  <li><strong>Language:</strong> ${repoLanguage}</li>
-                  <li><strong>Updated:</strong> ${repoUpdatedAt}</li>
+                  <li><strong>Language:</strong> ${language || 'Not specified'}</li>
+                  <li><strong>Updated:</strong> ${updatedAt}</li>
                 </ul>
-                <a href="${repoUrl}" class="btn btn-primary">View on GitHub</a>
+                <a href="${url}" class="btn btn-primary">View on GitHub</a>
               </div>
             </div>
-        `;
-    }
+          `;
+          this.repoHtml.insertAdjacentHTML('beforeend', repoHtml);
+        });
+      }
+    
 
     renderError(error) {
         const alert = document.createElement('div');
@@ -126,10 +132,12 @@ class API {
 
     async getUserRepo(input) {
         const response = await fetch(`https://api.github.com/users/${input}/repos?sort=updated`);
-        const data = await response.json();
+        const repos = await response.json();
+        const data = repos.slice(0, 5)
         if (data.message === 'Not Found') {
             throw new Error(`User "${input}" not found`);
         }
+        console.log(data)
         return data;
     }
 }
@@ -163,41 +171,6 @@ const run = () => {
             ui.hideLoading();
         }
     };
-
-    async function fetchRepo(input) {
-        try {
-          const response = await fetch(`https://api.github.com/users/${input}/repos?sort=updated`);
-          const repos = await response.json();
-          const latestRepo = repos[0];
-          const repoName = latestRepo.name;
-          const repoUrl = latestRepo.html_url;
-          const repoDescription = latestRepo.description;
-          const repoLanguage = latestRepo.language;
-          const repoUpdatedAt = latestRepo.updated_at;
-      
-          const repoHtml = `
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">${repoName}</h3>
-              </div>
-              <div class="card-body">
-                <p>${repoDescription}</p>
-                <ul>
-                  <li><strong>Language:</strong> ${repoLanguage}</li>
-                  <li><strong>Updated:</strong> ${repoUpdatedAt}</li>
-                </ul>
-                <a href="${repoUrl}" class="btn btn-primary">View on GitHub</a>
-              </div>
-            </div>
-          `;
-      
-          document.getElementById('repos').innerHTML = repoHtml;
-        } catch (error) {
-          console.error(error);
-        }
-      }
-      
-      fetchRepo('sharkich')
     
     ui.onInputChange(searchUser);
     ui.onFormSubmit(searchUser);
