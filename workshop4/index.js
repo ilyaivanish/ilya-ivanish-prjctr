@@ -16,11 +16,15 @@ class UI {
     }
 
     onInputChange(callback) {
+        let timeoutSearch = null;
         this.searchUserInputElement.addEventListener('keyup', (event) => {
             this.searchUserInput = event.target.value.trim();
-            if (callback) {
-                callback(this.searchUserInput);
-            }
+            clearTimeout(timeoutSearch);
+            timeoutSearch = setTimeout(() => {
+                if (callback) {
+                    callback(this.searchUserInput);
+                }
+            }, 1000)
         });
     }
 
@@ -123,7 +127,7 @@ const run = () => {
         }
     };
 
-    ui.onInputChange();
+    ui.onInputChange(searchUser);
     ui.onFormSubmit(searchUser);
 };
 
