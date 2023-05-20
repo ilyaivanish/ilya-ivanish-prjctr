@@ -1,5 +1,5 @@
 import { addRandomEmoticonToInput } from "./emoji.js";
-import { renderArray } from "./renderLists.js";
+import { renderArray, renderSet } from "./renderLists.js";
 const input = document.getElementById("inputValue");
 const submitButton = document.getElementById("addButton")
 const arrayList = document.getElementById("arrayList")
@@ -18,14 +18,7 @@ const startApp = () => {
     renderArray(array, inputValue, arrayList)
 
     // Добавление в сет, если значение еще не существует
-    set.add(inputValue);
-    console.log(set)
-    setList.innerHTML = '';
-    set.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = item;
-      setList.appendChild(li);
-    });
+    renderSet(set, inputValue, setList)
   
     input.value = addRandomEmoticonToInput(input); // Підставляємо в інпут після відправки новий емодзі
   }
