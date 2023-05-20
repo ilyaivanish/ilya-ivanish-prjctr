@@ -2,10 +2,11 @@ import { addRandomEmoticonToInput } from "./emoji.js";
 
 const array = new Array()
 const set = new Set(); // Инициализация сета
+
 const input = document.getElementById("inputValue");
 const submitButton = document.getElementById("addButton")
-const arrayEl = document.getElementById("arrayList")
-const setEl = document.getElementById("setList")
+const arrayList = document.getElementById("arrayList")
+const setList = document.getElementById("setList")
 
 
 const startApp = () => {
@@ -14,23 +15,30 @@ const startApp = () => {
     const inputValue = document.getElementById("inputValue").value;
 
     
-    if (inputValue.trim() !== "") {
+    
       // Добавление в массив
       array.push(inputValue);
+      console.log(array)
       let arrayItem = document.createElement("li");
       arrayItem.appendChild(document.createTextNode(inputValue));
-      arrayEl.appendChild(arrayItem);
+      arrayList.appendChild(arrayItem);
 
       // Добавление в сет, если значение еще не существует
-      if (!set.has(inputValue)) {
-        set.add(inputValue);
-        let setItem = document.createElement("li");
-        setItem.appendChild(document.createTextNode(inputValue));
-        setEl.appendChild(setItem);
-      }
-    }
+    
+      set.add(inputValue);
+      console.log(set)
+      setList.innerHTML = '';
+      set.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        setList.appendChild(li);
+      });
+    
+      
+    
     
     document.getElementById("inputValue").value = ""; // Очистка инпута
+    addRandomEmoticonToInput(input)
   }
 
   addRandomEmoticonToInput(input)
