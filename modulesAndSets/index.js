@@ -12,7 +12,7 @@ const startApp = () => {
   const array = new Array()
   const set = new Set();
   
-  addRandomEmoticonToInput(input) // Додаємо емодзі при завантаженні сторінки
+  input.value = addRandomEmoticonToInput() // Додаємо емодзі при завантаженні сторінки
 
   function addItem() {
     const inputValue = input.value;
@@ -20,7 +20,7 @@ const startApp = () => {
     updateArray(inputValue, array, arrayList)
     updateSet(inputValue, set, setList)
   
-    input.value = addRandomEmoticonToInput(input); // Після додавання оновлюємо інпут з новим емодзі  
+    input.value = addRandomEmoticonToInput(); // Після додавання оновлюємо інпут з новим емодзі  
   }
 
   submitButton.addEventListener("click", addItem);
