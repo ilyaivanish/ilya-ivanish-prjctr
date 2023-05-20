@@ -1,7 +1,8 @@
-const arrayEmotikon = ['🐮', '🐯', '🐼', '🐨', '🐵', '🐷', '🐸']; // Массив с эмотиконами
+import { addRandomEmoticonToInput } from "./emoji.js";
+
 const array = new Array()
 const set = new Set(); // Инициализация сета
-const inputValue = document.getElementById("inputValue").value;
+const input = document.getElementById("inputValue");
 const submitButton = document.getElementById("addButton")
 const arrayEl = document.getElementById("arrayList")
 const setEl = document.getElementById("setList")
@@ -32,16 +33,11 @@ const startApp = () => {
     document.getElementById("inputValue").value = ""; // Очистка инпута
   }
 
-  function getRandomEmoji() {
-    let randomIndex = Math.floor(Math.random() * arrayEmotikon.length);
-    let randomEmoji = arrayEmotikon[randomIndex];
-    document.getElementById("inputValue").value = randomEmoji;
-  }
+  addRandomEmoticonToInput(input)
 
   submitButton.addEventListener("click", addItem);
-  submitButton.addEventListener("click", getRandomEmoji);
+  submitButton.addEventListener("click", addRandomEmoticonToInput(input));
 
-  window.addEventListener("DOMContentLoaded", getRandomEmoji);
 
 }
 document.addEventListener('DOMContentLoaded', startApp);
